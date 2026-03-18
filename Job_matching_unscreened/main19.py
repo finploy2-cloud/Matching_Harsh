@@ -11,8 +11,8 @@ from datetime import datetime
 # ======================================================
 # CONFIGURATION
 # ======================================================
-TXT_PATH = r'D:\matching_harsh\Job_matching_unscreened\final_input\LIST_1024022606_20260224-172436.txt'
-ALL_MATCHES_XLSX = r"D:\matching_harsh\Job_matching_unscreened\final_output\all_job_matches_phone.xlsx"
+TXT_PATH = r'D:\matching_harsh\Job_matching_unscreened\final_input\LIST_1018032602_20260318-161417.txt'
+ALL_MATCHES_XLSX = r"D:\matching_harsh\Job_matching_unscreened\final_output\all_job_matches_phone (43).xlsx"
 
 GS_WORKBOOK_NAME = 'Tracker -Candidates'
 TAB_SCREENING = 'SCREENING'
@@ -261,7 +261,10 @@ line_df_existing = pd.DataFrame(line_values[1:], columns=line_headers)
 existing_line_ids = pd.to_numeric(line_df_existing.get("candidate_id", pd.Series([])),
                                   errors="coerce").dropna()
 
-LINEUP_NEXT_ID = int(existing_line_ids.max() or 0) + 1
+max_id = existing_line_ids.max()
+if pd.isna(max_id):
+    max_id = 0
+LINEUP_NEXT_ID = int(max_id) + 1
 
 line_new_rows, lineup_logs = [], []
 
